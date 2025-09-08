@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - LearnHub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#1E40AF',
+                        accent: '#F59E0B'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-lg">L</span>
+                    </div>
+                    <span class="text-xl font-bold text-gray-800">LearnHub</span>
+                </div>
+
+                <div class="hidden md:flex space-x-8">
+                    <a href="dashboard.html" class="text-gray-600 hover:text-primary transition-colors">Dashboard</a>
+                    <a href="courses.html" class="text-primary font-medium">Courses</a>
+                    <a href="assignments.html"
+                        class="text-gray-600 hover:text-primary transition-colors">Assignments</a>
+                    <a href="profile.html" class="text-gray-600 hover:text-primary transition-colors">Profile</a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                        <img src="https://via.placeholder.com/32x32" alt="Profile" class="w-8 h-8 rounded-full">
+                        <span class="text-sm font-medium text-gray-700" id="userName">John Doe</span>
+                    </div>
+                    <button onclick="logout()" class="text-gray-600 hover:text-primary transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-6 py-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">My Courses</h1>
+            <p class="text-gray-600">Continue your learning journey with these courses.</p>
+        </div>
+
+        <!-- Filter and Search -->
+        <div class="mb-8 flex flex-col md:flex-row gap-4">
+            <div class="flex-1">
+                <input type="text" placeholder="Search courses..." id="courseSearch"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-primary focus:border-primary">
+            </div>
+            <div class="flex gap-2">
+                <select id="categoryFilter"
+                    class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-primary focus:border-primary">
+                    <option value="">All Categories</option>
+                    <option value="programming">Programming</option>
+                    <option value="design">Design</option>
+                    <option value="business">Business</option>
+                    <option value="marketing">Marketing</option>
+                </select>
+                <select id="statusFilter"
+                    class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-primary focus:border-primary">
+                    <option value="">All Status</option>
+                    <option value="enrolled">Enrolled</option>
+                    <option value="completed">Completed</option>
+                    <option value="not-started">Not Started</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Course Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="courseGrid">
+            <!-- Course cards will be populated by JavaScript -->
+        </div>
+
+        <!-- Load More Button -->
+        <div class="text-center mt-8">
+            <button id="loadMoreBtn"
+                class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-secondary transition-colors">
+                Load More Courses
+            </button>
+        </div>
+    </div>
+
+    <!-- Course Modal -->
+    <div id="courseModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-4">
+                    <h2 id="modalTitle" class="text-2xl font-bold text-gray-800"></h2>
+                    <button onclick="closeCourseModal()" class="text-gray-500 hover:text-gray-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+                <div id="modalContent" class="space-y-4">
+                    <!-- Modal content will be populated by JavaScript -->
+                </div>
+                <div class="mt-6 flex gap-4">
+                    <button id="enrollBtn"
+                        class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-secondary transition-colors">
+                        Enroll Now
+                    </button>
+                    <button onclick="closeCourseModal()"
+                        class="border border-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-50 transition-colors">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+
+</html>
